@@ -23,4 +23,6 @@ Lien: https://github.com/MaximeWq
 
 ## Status action
 
+[![Echo On Push](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/main.yml/badge.svg)](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/main.yml)
+
 
