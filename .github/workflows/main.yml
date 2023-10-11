@@ -1,0 +1,15 @@
+name: Echo On Push
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  echo_on_push:
+    name: echo on push
+    runs-on: windows-latest
+    
+    steps:
+      - name: echo sur push
+        run: echo "New push !"
