@@ -1,7 +1,7 @@
 <h1 align="center">4A_ILC_CICD_PROJETs </h1>
 
 
-## Nom Prenom Option
+## Membres
 
 
 Wissocq Maxime ILC
