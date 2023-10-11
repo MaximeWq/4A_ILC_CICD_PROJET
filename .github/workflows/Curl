@@ -13,4 +13,4 @@ jobs:
 
     - name: Curl to wttr.in/Moon
       run: |
-        curl wttr.in/Moon
+        curl https://wttr.in/Moon
