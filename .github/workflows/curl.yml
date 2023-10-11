@@ -1,0 +1,16 @@
+name: Curl Moon
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  curl_moon:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Curl to wttr.in/Moon
+      run: |
+        curl https://wttr.in/Moon
