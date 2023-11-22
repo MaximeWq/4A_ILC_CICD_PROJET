@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Exemple d'API Flask
+  description: API pour gérer des éléments avec un dictionnaire ID/Modèle
+  version: 1.0.0
+
+paths:
+  /afficher_liste:
+    get:
+      summary: Récupérer la liste complète
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              example: {"1": "ModeleA", "2": "ModeleB"}
+
+  /ajouter_element:
+    post:
+      summary: Ajouter un élément
+      requestBody:
+        description: Données JSON pour ajouter un élément
+        required: true
+        content:
+          application/json:
+            example: {"id": "1", "modele": "ModeleA"}
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              example: {"message": "Élément ajouté avec succès"}
+        '400':
+          description: Requête invalide
+          content:
+            application/json:
+              example: {"message": "Requête invalide"}
+
+  /supprimer_element/{id}:
+    delete:
+      summary: Supprimer un élément par ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de l'élément à supprimer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              example: {"message": "Élément supprimé avec succès"}
+        '404':
+          description: Élément introuvable
+          content:
+            application/json:
+              example: {"message": "Élément introuvable"}
+
+  /modifier_element/{id}:
+    put:
+      summary: Modifier un élément par ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de l'élément à modifier
+          schema:
+            type: string
+      requestBody:
+        description: Données JSON pour modifier un élément
+        required: true
+        content:
+          application/json:
+            example: {"modele": "ModeleB"}
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              example: {"message": "Élément modifié avec succès"}
+        '404':
+          description: Élément introuvable
+          content:
+            application/json:
+              example: {"message": "Élément introuvable"}
