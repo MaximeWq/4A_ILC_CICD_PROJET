@@ -12,6 +12,21 @@ Wissocq Maxime ILC
 
 Lien: https://github.com/MaximeWq
 
+## Documentation API REST
+
+- E1 - Créer un évènement:
+Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évènement, on utilise donc la méthode POST. On récupère le contenu sous forme json passé via curl. On ajoute ensuite au dictionnaire le contenu récupéré.
+  
+- E2 - Afficher une liste de tous les événements dans l’ordre chronologique
+
+- E3 - Afficher une liste de tous les évènements dans l’ordre chronologique liées à une personne.
+
+- E4 - Ajouter un participant à un évènement.
+
+- E5 - Afficher le détails du prochain cours.
+
+- E6 - Importer des données depuis un fichier csv.
+
 
 ## Image
 
