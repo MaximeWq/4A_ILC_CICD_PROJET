@@ -23,7 +23,7 @@ Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évèneme
 
 - E4 - Ajouter un participant à un évènement: On récupère le participant passé par requête curl avec request.get_json() et on l'ajoute a notre tableau de participants pour touts les évènements correspondant à ce que l'on recherche.
 
-- E5 - Afficher le détails du prochain cours.
+- E5 - Afficher le détails du prochain cours: Pour trouver le dernier cours, on utilise la fonction python min pour trouver l'évènement avec la valeur de date la plus faible et donc la proche du présent.
 
 - E6 - Importer des données depuis un fichier csv.
 
