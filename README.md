@@ -19,7 +19,7 @@ Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évèneme
   
 - E2 - Afficher une liste de tous les événements dans l’ordre chronologique: On utilise la fonction sorted() de python sur la clé 'T1' pour trier le dictionnaire par ordre chronologique. On retourne ensuite ce dictionnaire au format json.
 
-- E3 - Afficher une liste de tous les évènements dans l’ordre chronologique liées à une personne.
+- E3 - Afficher une liste de tous les évènements dans l’ordre chronologique liées à une personne: Même principe que E2, on va en plus parcourir les personnes des evenements pour voir si certains correspondent à ce qu'on recherche.
 
 - E4 - Ajouter un participant à un évènement.
 
