@@ -17,7 +17,7 @@ Lien: https://github.com/MaximeWq
 - E1 - Créer un évènement:
 Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évènement, on utilise donc la méthode POST. On récupère le contenu sous forme json passé via curl. On ajoute ensuite au dictionnaire le contenu récupéré.
   
-- E2 - Afficher une liste de tous les événements dans l’ordre chronologique
+- E2 - Afficher une liste de tous les événements dans l’ordre chronologique: On utilise la fonction sorted() de python sur la clé 'T1' pour trier le dictionnaire par ordre chronologique. On retourne ensuite ce dictionnaire au format json.
 
 - E3 - Afficher une liste de tous les évènements dans l’ordre chronologique liées à une personne.
 
