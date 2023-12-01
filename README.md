@@ -21,7 +21,7 @@ Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évèneme
 
 - E3 - Afficher une liste de tous les évènements dans l’ordre chronologique liées à une personne: Même principe que E2, on va en plus parcourir les personnes des evenements pour voir si certains correspondent à ce qu'on recherche.
 
-- E4 - Ajouter un participant à un évènement.
+- E4 - Ajouter un participant à un évènement: On récupère le participant passé par requête curl avec request.get_json() et on l'ajoute a notre tableau de participants pour touts les évènements correspondant à ce que l'on recherche.
 
 - E5 - Afficher le détails du prochain cours.
 
