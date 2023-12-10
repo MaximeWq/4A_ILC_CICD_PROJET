@@ -13,4 +13,4 @@ jobs:
 
       - name: Build Docker Image
         working-directory: projet_cicd
-        run: docker build . --file Dockerfile
+        run: docker build . --file Dockerfile.dockerfile
