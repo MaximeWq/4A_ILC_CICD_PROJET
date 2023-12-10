@@ -1,0 +1,20 @@
+name: Tagged Build and Push Docker Image
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build and Push Docker Image
+        run: |
+          version=$(echo "${GITHUB_REF}" | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
+          docker build -t image-projet:${version} .
+          docker push image-projet:${version}
