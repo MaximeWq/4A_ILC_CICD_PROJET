@@ -13,7 +13,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Build Application
-        run: docker build -t image-projet .
+      - name: Build Docker Image
+        run: docker build -t image-projet -f Dockerfile.dockerfile .
+
+
 
 
