@@ -43,8 +43,8 @@ jobs:
         uses: docker/build-push-action@v3.3.1
         with:
           # Emplacement du Dockerfile
-          file: tds/corrections/Dockerfile
-          tags: europe-west1-docker.pkg.dev/esirem/esirem/test:${{ github.ref_name }}
+          file: projet_cicd/Dockerfile.dockerfile
+          tags: europe-west1-docker.pkg.dev/esirem/esirem/4A_[ilc]/[wissocq]/[4A_ILC_CICD_PROJET]:${{ github.ref_name }}
           # Emplacement des fichiers 
-          context: tds/corrections
+          context: projet_cicd
           push: true
