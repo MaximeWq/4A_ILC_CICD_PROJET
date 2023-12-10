@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import csv
 import sys
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
@@ -10,7 +12,7 @@ events = {
 }
 
 # E1 - Créer un évènement
-#curl -X POST -H "Content-Type: application/json" -d "{"T1": "2023-12-03T15:30:00", "t": 1800, "p": ["person3", "person4"], "n": "Event 3"}" http://localhost:5000/add-events
+#curl -X POST -H "Content-Type: application/json" -d "{\"T1\": \"2023-12-03T15:30:00\", \"t\": 1800, \"p\": [\"person3\", \"person4\"], \"n\": \"Event 3\"}" http://localhost:5000/add-events
 @app.route("/add-events", methods=["POST"])
 def create_event():
     data = request.get_json()
@@ -32,7 +34,7 @@ def get_events_by_person(person):
     return jsonify({"events": sorted_person_events}), 200
 
 # E4 - Ajouter un participant à un évènement
-#curl -X POST -H "Content-Type: application/json" -d "{"participant": "nouveau_participant"}" http://localhost:5000/add-participants/event1/participants
+#curl -X POST -H "Content-Type: application/json" -d "{\"participant\": \"nouveau_participant\"}" http://localhost:5000/add-participants/event1/participants
 @app.route("/add-participants/<event_name>/participants", methods=["POST"])
 def add_participant(event_name):
     data = request.get_json()
@@ -54,30 +56,39 @@ def get_next_event():
 @app.route("/import-csv", methods=["POST"])
 def import_csv():
     try:
+        if "file" not in request.files:
+            return jsonify({"error": "No file selected"}), 400
+
         file = request.files["file"]
+
         if file.filename == "":
             return jsonify({"error": "No file selected"}), 400
 
-        if file:
-            # Supprimez les événements existants avant d"importer depuis le fichier CSV
-            events.clear()
+        # Use secure_filename to ensure a safe filename
+        filename = secure_filename(file.filename)
 
-            # Lecture du fichier CSV
-            csv_data = csv.DictReader(file)
+        # Save the file to a temporary location
+        file.save(filename)
+
+        # Supprimez les événements existants avant d"importer depuis le fichier CSV
+        events.clear()
+
+        # Lecture du fichier CSV
+        with open(filename, 'rt', encoding='utf-8') as csvfile:
+            csv_data = csv.reader(csvfile, delimiter=',')
             for row in csv_data:
-                event_name = row.get("n")
+                event_name = row[0]  # assuming the event name is in the first column
                 events[event_name] = {
-                    "T1": row.get("T1"),
-                    "t": int(row.get("t")),
-                    "p": row.get("p").split(","),
+                    "T1": row[1],
+                    "t": int(row[2]),
+                    "p": row[3].split(","),
                     "n": event_name
                 }
 
-            return jsonify({"message": "CSV data imported successfully"}), 200
+        return jsonify({"message": "CSV data imported successfully"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
