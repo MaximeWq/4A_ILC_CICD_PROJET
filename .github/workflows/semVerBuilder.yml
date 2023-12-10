@@ -19,3 +19,32 @@ jobs:
           version=$(echo "${GITHUB_REF}" | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
           docker build . --file Dockerfile.dockerfile -t image-projet:${version}
           docker push image-projet:${version}
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: 'Set up Cloud Auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GCLOUD_KEY }}
+    
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          project_id: esirem
+
+      - name: Configure Docker using GCLOUD
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v3.3.1
+        with:
+          # Emplacement du Dockerfile
+          file: tds/corrections/Dockerfile
+          tags: europe-west1-docker.pkg.dev/esirem/esirem/test:${{ github.ref_name }}
+          # Emplacement des fichiers 
+          context: tds/corrections
+          push: true
