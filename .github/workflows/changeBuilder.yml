@@ -14,5 +14,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Application
-        run: |
-          docker build -t image-projet -f ../../projet_cicd .
+        run: docker build -t image-projet -f projet_cicd .
