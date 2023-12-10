@@ -1,0 +1,18 @@
+name: Build on change
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Application
+        run: |
+          docker build -t image-projet -f ../../projet_cicd .
