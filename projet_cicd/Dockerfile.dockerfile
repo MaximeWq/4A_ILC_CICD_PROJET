@@ -1,5 +1,5 @@
-# Utiliser l'image Python 3.8 comme image de base
-FROM python:3.8
+# Utiliser l'image Python pour Windows
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 # Créer et définir le répertoire de travail
 WORKDIR /app
