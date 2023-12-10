@@ -7,14 +7,15 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Build and Push Docker Image
+        working-directory: projet_cicd
         run: |
           version=$(echo "${GITHUB_REF}" | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
-          docker build -t image-projet:${version} .
+          docker build . --file Dockerfile.dockerfile -t image-projet:${version}
           docker push image-projet:${version}
