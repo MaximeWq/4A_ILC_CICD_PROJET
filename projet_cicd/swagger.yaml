@@ -1,35 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
-  description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
-    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
-    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
-    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
-
-    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
-    
-    Some useful links:
-    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  termsOfService: http://swagger.io/terms/
-  contact:
-    email: apiteam@swagger.io
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
-servers:
-  - url: https://petstore3.swagger.io/api/v3
-tags:
-  - name: event
-    description: Everything about the events
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
+  title: API REST
 paths:
   /add-events:
     post:
@@ -38,104 +9,40 @@ paths:
       summary: Add a new event
       description: Add a new event
       operationId: addEvent
-      requestBody:
-        description: Create a new event
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-        required: true
       responses:
-        '200':
+        '201':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '405':
+        '400':
           description: Invalid input
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
   /display-events:
     get:
       tags:
         - event
-      summary: Dislay events in chronological order
-      description: Dislay events in chronological order
+      summary: Display events in chronological order
+      description: Display events in chronological order
       operationId: displayChro
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: available
-            enum:
-              - available
-              - pending
-              - sold
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid status value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
   /display-events/{person}:
     get:
       tags:
         - event
-      summary: Dislay events in which someone participate in chronological order
-      description: Dislay events in which someone participate in chronological order
+      summary: Display events in which someone participates in chronological order
+      description: Display events in which someone participates in chronological order
       operationId: displayPerson
       parameters:
         - name: person
-          in: query
-          description: Tags to filter by
-          required: false
-          explode: true
+          in: path
+          description: Person identifier
+          required: true
           schema:
             type: string
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
+          description: Successful operation
         '400':
-          description: Invalid tag value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
+          description: Invalid input
   /add-participants/{event_name}/participants:
     post:
       tags:
@@ -143,45 +50,25 @@ paths:
       summary: Add a participant to a given event
       description: Add a participant to a given event
       operationId: addPartEvent
+      parameters:
+        - name: event_name
+          in: path
+          description: Event name
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
         '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-  /display-next-event:
-    get:
-      tags:
-        - event
-      summary: Add a participant to a given event
-      description: Add a participant to a given event
-      operationId: addPartEvent
-      responses:
-        '200':
-          description: successful operation
-          
+          description: Invalid input supplied
   /import-csv:
     post:
       tags:
         - event
-      summary: Add a participant to a given event
-      description: Add a participant to a given event
-      operationId: addPartEvent
+      summary: Import events from a csv file 
+      description: Import events from a csv file 
+      operationId: import
       responses:
         '200':
           description: successful operation
-  
-  
-  
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
