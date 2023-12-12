@@ -18,7 +18,7 @@ jobs:
         run: |
           version=$(echo "${GITHUB_REF}" | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
           docker build . --file Dockerfile.dockerfile -t image-projet:${version}
-          docker push image-projet:${version}
+          docker push image-projet
   docker:
     runs-on: ubuntu-latest
     steps:
