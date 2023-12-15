@@ -7,12 +7,12 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 events = {
-    "event1": {"T1": "2023-12-01T12:00:00", "t": 3600, "p": ["person1", "person2"], "n": "Event 1"},
-    "event2": {"T1": "2023-11-30T14:00:00", "t": 7200, "p": ["person2", "person3"], "n": "Event 2"},
+    "event1": {"T1": "2023-12-01T12:00:00", "t": 3600, "p": ["person1", "person2"], "n": "Event 1", "d": "Description 1"},
+    "event2": {"T1": "2023-11-30T14:00:00", "t": 7200, "p": ["person2", "person3"], "n": "Event 2", "d": "Description 2"},
 }
 
 # E1 - Créer un évènement
-#curl -X POST -H "Content-Type: application/json" -d "{\"T1\": \"2023-12-03T15:30:00\", \"t\": 1800, \"p\": [\"person3\", \"person4\"], \"n\": \"Event 3\"}" http://localhost:5000/add-events
+# curl -X POST -H "Content-Type: application/json" -d "{\"T1\": \"2023-12-03T15:30:00\", \"t\": 1800, \"p\": [\"person3\", \"person4\"], \"n\": \"Event 3\", \"d\": \"Description 3\"}" http://localhost:5000/add-events
 @app.route("/add-events", methods=["POST"])
 def create_event():
     data = request.get_json()
@@ -54,36 +54,39 @@ def get_next_event():
         return jsonify({"next_event": next_event}), 200
     else:
         return jsonify({"message": "No events available"}), 404
-
-# E6 - Importer des données depuis un fichier csv
-#curl -X POST -F "file=@events.csv" http://localhost:5000/import-csv
+    # E6 - Importer des données depuis un fichier csv
+# curl -X POST -F "file=@events.csv" http://localhost:5000/import-csv
 @app.route("/import-csv", methods=["POST"])
 def import_csv():
-    try:                   # Utilisation du bloc try-except pour gérer les exceptions potentielles lors de l'importation du fichier CSV
+    try:                                 # Utilisation du bloc try-except pour gérer les exceptions potentielles lors de l'importation du fichier CSV
         if "file" not in request.files:
-            return jsonify({"error": "No file found"}), 400    # On vérifie si le fichier est bien présent dans la requête
+            return jsonify({"error": "No file found"}), 400     # On vérifie si le fichier est bien présent dans la requête
 
-
-        file = request.files["file"]        # On récupère le fichier
+        file = request.files["file"]                            # On récupère le fichier
         if file.filename == "":
-            return jsonify({"error": "File name is empty"}), 400       #On vérifie que le nom du ficher n'est pas vide
-        
-        filename = secure_filename(file.filename)           #Conversion en un format adapté pour Flask
-        file.save(filename)                                 #Sauvegarde du fichier
-        events.clear()                                      #On vide le dictionnaire d'évènement actuel
-        with open(filename, 'rt', encoding='utf-8') as csvfile:         #On ouvre le fichier csv en mode lecture de texte
-            csv_data = csv.reader(csvfile, delimiter=',')             #On lit le fichier csv avec le délimiteur ','
+            return jsonify({"error": "File name is empty"}), 400        #On vérifie que le nom du ficher n'est pas vide
+
+        filename = secure_filename(file.filename)               #Conversion en un format adapté pour Flask
+        file.save(filename)                                     #Sauvegarde du fichier
+        events.clear()                                          #On vide le dictionnaire d'évènement actuel
+
+        with open(filename, 'rt', encoding='utf-8') as csvfile:     #On ouvre le fichier csv en mode lecture de texte
+            csv_data = csv.reader(csvfile, delimiter=',')           #On lit le fichier csv avec le délimiteur ','
             for row in csv_data:
-                event_name = row[0]                 #On récupère le nom de l'évènement      
-                events[event_name] = {              #On ajoute les colonnes lues au dictionnaire
+                event_name = row[0]                                 #On récupère le nom de l'évènement
+                events[event_name] = {                              #On ajoute les colonnes lues au dictionnaire
                     "T1": row[1],
                     "t": int(row[2]),
                     "p": row[3].split(","),
-                    "n": event_name
+                    "n": event_name,
+                    "d": row[4]  
                 }
+
         return jsonify({"message": "CSV data imported"}), 200
     except Exception as e:
         return jsonify({"error: ": str(e)}), 500
+    
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
