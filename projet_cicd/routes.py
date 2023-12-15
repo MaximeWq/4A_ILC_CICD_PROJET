@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import csv
 import sys
 from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+
 
 
 app = Flask(__name__)
@@ -85,6 +87,33 @@ def import_csv():
         return jsonify({"message": "CSV data imported"}), 200
     except Exception as e:
         return jsonify({"error: ": str(e)}), 500
+    
+
+# E7 - Obtenir le temps total passé dans des évènements pour une personne
+# curl http://localhost:5000/time/person1
+@app.route("/time/<person>", methods=["GET"])
+def get_time(person):
+    time_today = 0
+    time_seven_days = 0
+    time_month = 0
+    current_time = datetime.now()
+    seven_days_ago = current_time - timedelta(days=7)
+    last_month = datetime(current_time.year, current_time.month - 1, current_time.day) if current_time.month > 1 else datetime(current_time.year - 1, 12, current_time.day)
+
+    for event in events.values():
+        if person in event["p"]:
+            if datetime.fromisoformat(event["T1"]).date() == current_time.date():
+                time_today += event["t"]
+            if datetime.fromisoformat(event["T1"]) >= seven_days_ago:
+                time_seven_days += event["t"]
+            if datetime.fromisoformat(event["T1"]) >= last_month:
+                time_month += event["t"]
+    return jsonify({
+        "Amount of time today": time_today,
+        "Amount of time last seven days": time_seven_days,
+        "Amount of time last month": time_month
+    }), 200
+
     
 
 
