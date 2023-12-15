@@ -101,7 +101,7 @@ def get_time(person):
     last_month = datetime(current_time.year, current_time.month - 1, current_time.day) if current_time.month > 1 else datetime(current_time.year - 1, 12, current_time.day)
 
     for event in events.values():
-        if person in event["p"]:
+        if person in event["p"] and len(event["p"]) > 1:
             if datetime.fromisoformat(event["T1"]).date() == current_time.date():
                 time_today += event["t"]
             if datetime.fromisoformat(event["T1"]) >= seven_days_ago:
