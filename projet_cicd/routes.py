@@ -56,6 +56,8 @@ def get_next_event():
         return jsonify({"next_event": next_event}), 200
     else:
         return jsonify({"message": "No events available"}), 404
+
+        
     # E6 - Importer des données depuis un fichier csv
 # curl -X POST -F "file=@events.csv" http://localhost:5000/import-csv
 @app.route("/import-csv", methods=["POST"])
@@ -113,6 +115,22 @@ def get_time(person):
         "Amount of time last seven days": time_seven_days,
         "Amount of time last month": time_month
     }), 200
+
+# E8 - Calculer le temps restant avant une date ou un évènement
+# curl http://localhost:5000/time-left/2023-12-25
+@app.route("/time-left/<date>", methods=["GET"])
+def get_time_left(date):
+    try:
+        target_date = datetime.strptime(date, "%Y-%m-%d")
+        current_time = datetime.now()
+
+        if target_date > current_time:
+            time_left = target_date - current_time
+            return jsonify({"time left": str(time_left)}), 200
+        else:
+            return jsonify({"message": "The date has already passed"}), 400
+    except ValueError:
+        return jsonify({"error": "Wrong format. Use: YYYY-MM-DD"}), 400
 
     
 
