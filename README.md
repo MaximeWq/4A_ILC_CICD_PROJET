@@ -1,4 +1,5 @@
 <h1 align="center">4A_ILC_CICD_PROJETs </h1>
+<h2 align="center">Objectif : Créer une API Flask pour de la gestion CRUD d’un calendrier.</h2>
 
 
 ## Membres
@@ -11,6 +12,8 @@ Wissocq Maxime ILC
 
 
 Lien: https://github.com/MaximeWq
+
+Le contenu du TP de projet est dans le dossier projet_cicd
 
 ## Documentation API REST
 
@@ -27,16 +30,20 @@ Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évèneme
 
 - E6 - Importer des données depuis un fichier csv.
 
+## Documentation des routes avec swagger
 
-## Image
+https://editor.swagger.io/
 
-![image](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/assets/89657470/c0e4ddd7-7978-4bdf-9ff1-14b95b68235a)
+Utiliser le fichier swagger.yaml, pour accédéder à la description des routes.
 
-## Badges
+## Technologies uilisées
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![Dockerfile](https://img.shields.io/badge/Dockerfile-Yes-green.svg)](https://https://github.com/MaximeWq/4A_ILC_CICD_PROJET)
 
-## Status action
 
-[![Echo On Push](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/main.yml/badge.svg)](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/main.yml)
+## Résulats des builds
+
+[![Build on change](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/changeBuilder.yml/badge.svg)](https://github.com/MaximeWq/4A_ILC_CICD_PROJET/actions/workflows/changeBuilder.yml)
+
 
