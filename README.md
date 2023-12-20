@@ -59,6 +59,10 @@ Pour cette route, on souhaite ajouter des éléments au dictionnaire d'évèneme
 
 - E6 - Importer des données depuis un fichier csv: On va lire le fichier en se basant sur le délimiteur ",". On peut alors simplement remplire le dictionnaire avec les valeurs lues dans le fichiers csv.
 
+- E7 - Obtenir le nombre total de temps passé dans des évènements pour une personne sur la journée, sur sept jours et sur un mois.
+
+- E8 - Calculer le temps restant avant une date ou un évènement 
+
 ## Documentation des routes avec swagger
 
 https://editor.swagger.io/
