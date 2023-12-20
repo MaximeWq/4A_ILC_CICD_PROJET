@@ -44,7 +44,6 @@ jobs:
         with:
           # Emplacement du Dockerfile
           file: projet_cicd/Dockerfile.dockerfile
-          tags: europe-west1-docker.pkg.dev/esirem/esirem/4A_[ilc]/[wissocq]/[4A_ILC_CICD_PROJET]:${{ github.ref_name }}
-          # Emplacement des fichiers 
+          tags: europe-west1-docker.pkg.dev/esirem/esirem/projet_cicd:${{ github.ref_name }}
           context: projet_cicd
           push: true
