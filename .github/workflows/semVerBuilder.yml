@@ -18,7 +18,9 @@ jobs:
         run: |
           version=$(echo "${GITHUB_REF}" | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
           docker build . --file Dockerfile.dockerfile -t image-projet:latest
-          docker push image-projet
+          docker tag image-projet:latest image-projet:${version}
+          docker push image-projet:latest
+          docker push image-projet:${version}
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -42,9 +44,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.3.1
         with:
-          # Emplacement du Dockerfile
           file: projet_cicd/Dockerfile.dockerfile
-          tags: europe-west1-docker.pkg.dev/esirem/esirem/4A_[ilc]/[wissocq]/[4A_ILC_CICD_PROJET]:${{ github.ref_name }}
-          # Emplacement des fichiers 
+          tags: europe-west1-docker.pkg.dev/esirem/esirem/4A_[ilc]/[wissocq]/[4A_ILC_CICD_PROJET]:${{ version }}
           context: projet_cicd
           push: true
+
