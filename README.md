@@ -1,4 +1,4 @@
-<h1 align="center">4A_ILC_CICD_PROJETs </h1>
+<h1 align="center">4A_ILC_CICD_PROJET </h1>
 <h2 align="center">Objectif : Créer une API Flask pour de la gestion CRUD d’un calendrier.</h2>
 
 
