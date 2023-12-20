@@ -38,6 +38,8 @@ jobs:
 
       - name: Configure Docker using GCLOUD
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.3.1
