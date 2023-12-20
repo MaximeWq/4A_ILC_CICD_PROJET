@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: API REST
+  version: "3.0.3"
 paths:
   /add-events:
     post:
@@ -72,3 +73,43 @@ paths:
       responses:
         '200':
           description: successful operation
+  /time/{person}:
+    get:
+      tags:
+        - event
+      summary: Get the time someone passed on an event
+      description: Get the time someone passed on an event
+      operationId: displayTime
+      parameters:
+        - name: person
+          in: path
+          description: Person identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+  /time-left/{date}:
+    get:
+      tags:
+        - event
+      summary: Get the time remaining before an event
+      description: Get the time remaining before an event
+      operationId: getTime
+      parameters:
+        - name: date
+          in: path
+          description: Date of the event
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+  
+  
