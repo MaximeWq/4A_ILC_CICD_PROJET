@@ -38,16 +38,11 @@ jobs:
 
       - name: Configure Docker using GCLOUD
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
-        env:
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-          
-      - name: Login to DockerHub
-        run: echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.3.1
         with:
+          # Emplacement du Dockerfile
           file: projet_cicd/Dockerfile.dockerfile
           tags: europe-west1-docker.pkg.dev/esirem/esirem/projet_cicd:${{ github.ref_name }}
           context: projet_cicd
