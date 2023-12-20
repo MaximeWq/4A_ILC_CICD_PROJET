@@ -29,8 +29,7 @@ jobs:
       - name: 'Set up Cloud Auth'
         uses: 'google-github-actions/auth@v1'
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          credentials_json: ${{ secrets.GCLOUD_KEY }}
     
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
